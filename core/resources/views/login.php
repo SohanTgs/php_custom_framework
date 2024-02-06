@@ -4,7 +4,6 @@
     <title>Login</title>
 </head>
 <body>
-<?php echo Router::url('authenticate'); ?>
     <h1>Login</h1>
     <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
         <p style="color: red;">Invalid username or password.</p>

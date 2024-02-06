@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\Auth;
+use App\Models\Admin;
 
 class AuthController {
 
@@ -10,7 +11,8 @@ class AuthController {
     }
 
     public function dashboard(){
-        return 200;
+        $admin = Admin::first();
+        return $admin;
     }
 
     public function authenticate() {
@@ -18,14 +20,14 @@ class AuthController {
         $password = $_POST['password'] ?? '';
 
         if (Auth::login($username, $password)) {
-            Router::redirect('dashboard');
+            return Router::redirect('dashboard');
         }
 
-        Router::redirect('login');
+        return Router::redirect('login');
     }
 
     public function logout() {
         Auth::logout();
-        Router::redirect('login');
+        return Router::redirect('login');
     }
 }

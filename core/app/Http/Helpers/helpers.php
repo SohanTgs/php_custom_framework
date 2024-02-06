@@ -1,5 +1,7 @@
 <?php
 
+use App\System;
+
 function view($view, $data = []) {
     extract($data);
     include TGS_ROOT . '/core/resources/views/' . $view . '.php';
@@ -22,3 +24,35 @@ function dump(...$args) {
     }
 }
 
+function toObject($args){
+    if (is_array($args)) {
+        return (object) array_map(__FUNCTION__, $args);
+    } else {
+        return $args;
+    }
+}
+
+function env($envKey = null){
+    $envFilePath = TGS_ROOT .'/core/.env';
+    $envVariables = [];
+    if (file_exists($envFilePath)) {
+        $lines = file($envFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            if (strpos($line, '=') !== false && substr($line, 0, 1) !== '#') {
+                list($key, $value) = explode('=', $line, 2);
+                $envVariables[$key] = $value;
+            }
+        }
+    }
+
+    if($envKey){
+        return $envVariables[$envKey];
+    }
+
+    return $envVariables;
+}
+
+
+function system_instance()   {
+    return System::getInstance();
+}

@@ -5,6 +5,6 @@ define('TGS_ROOT_URL', explode('/', $_SERVER['PHP_SELF'])[1]);
 
 require TGS_ROOT .'/core/vendor/autoload.php';
 
-require_once TGS_ROOT .'/core/bootstrap/app.php';
-require_once TGS_ROOT  . '/core/routes/Router.php';
+$system = system_instance();
+$system->bootRoute();
 ?>

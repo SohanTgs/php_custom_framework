@@ -3,6 +3,7 @@
 class HomeController {
 
     public function index() {
+
         $pageTitle = 'Index';
         return view('home', compact('pageTitle'));
     }
