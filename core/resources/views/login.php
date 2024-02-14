@@ -10,10 +10,10 @@
     <?php endif; ?>
     <form action="<?php echo Router::url('authenticate'); ?>" method="post">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username">
         <br>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password">
         <br>
         <input type="submit" value="Login">
     </form>

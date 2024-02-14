@@ -1,6 +1,14 @@
 <?php
 
 use App\System;
+use App\Session;
+
+function systemDetails(){
+    $system['name'] = 'sohantgs';
+    $system['version'] = '1.0';
+    $system['build_version'] = '1.0';
+    return $system;
+}
 
 function view($view, $data = []) {
     extract($data);
@@ -52,7 +60,28 @@ function env($envKey = null){
     return $envVariables;
 }
 
-
-function system_instance()   {
+function systemInstance()   {
     return System::getInstance();
+}
+
+function keyToTitle($text){
+    return ucfirst(preg_replace("/[^A-Za-z0-9 ]/", ' ', $text));
+}
+
+function redirectBack($notify = null){
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $url = $_SERVER['HTTP_REFERER'];
+    } else {
+    //     $url = home_url();
+    }
+
+    Router::away($url);
+}
+
+function session(){
+    return new Session();
+}
+
+function assets($path = null){
+    return 200;
 }

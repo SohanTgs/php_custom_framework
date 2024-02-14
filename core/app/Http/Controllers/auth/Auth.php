@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Admin;
+
 class Auth {
 
     public static function login($username, $password) {
-        if ($username == 'admin' && $password == 'admin') {
-            $_SESSION['user'] = $username;
+        $admin = Admin::where('username', $username)->where('password', $password)->first();
+        if ($admin) {
+            $_SESSION['user'] = $admin;
             return true;
         }
         return false;

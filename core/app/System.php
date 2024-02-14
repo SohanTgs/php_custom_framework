@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Database\Database;
+use App\Session;
 
 class System {
 
@@ -11,7 +12,7 @@ class System {
     private static $instance = null;
 
     public function __construct() {
-        session_start();
+        session();
     }
 
     public static $facades = [
@@ -30,10 +31,7 @@ class System {
 
     public function bootRoute(){
         require_once TGS_ROOT  . '/core/app/route/Router.php';
-        //===================================================
         require_once TGS_ROOT . '/core/routes/web.php';
-        //===================================================
-        require_once TGS_ROOT  . '/core/app/route/Manage.php';
     }
 
 }

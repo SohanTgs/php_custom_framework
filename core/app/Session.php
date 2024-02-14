@@ -2,7 +2,8 @@
 
 namespace App;
 
-class Session{
+class Session
+{
     public function __construct()
     {
         if (session_status() != PHP_SESSION_ACTIVE) {
@@ -12,7 +13,7 @@ class Session{
 
     public function has($key)
     {
-        $flashKey = $key.'.____flash';
+        $flashKey = $key . '.____flash';
         if (isset($_SESSION[$flashKey])) {
             return true;
         }
@@ -22,7 +23,7 @@ class Session{
         return false;
     }
 
-    public function put($key,$value)
+    public function put($key, $value)
     {
         $_SESSION[$key] = $value;
     }
@@ -32,21 +33,19 @@ class Session{
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
-        $flashKey = $key.'.____flash';
+        $flashKey = $key . '.____flash';
         if (isset($_SESSION[$flashKey])) {
-            $key = $flashKey;
-        }
-        if (isset($_SESSION[$key])) {
+            $sessionValue = $_SESSION[$flashKey];
+            unset($_SESSION[$flashKey]); // Remove flash data after reading
+        } elseif (isset($_SESSION[$key])) {
             $sessionValue = $_SESSION[$key];
         }
-        if (isset($sessionValue)) {
-            return $sessionValue;
-        }
+        return $sessionValue ?? null;
     }
 
-    public function flash($key,$value)
+    public function flash($key, $value)
     {
-        $this->put($key.'.____flash',$value);
+        $this->put($key . '.____flash', $value);
     }
 
     public function forget($key)
@@ -54,3 +53,4 @@ class Session{
         unset($_SESSION[$key]);
     }
 }
+

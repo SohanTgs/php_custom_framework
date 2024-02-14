@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\Auth;
 use App\Models\Admin;
+use App\Request;
 
 class AuthController {
 
@@ -18,7 +19,14 @@ class AuthController {
     public function authenticate() {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
+        
+        $request = new Request();
 
+        $request->validate([
+            'username'=>'required',
+            'password'=>'required',
+        ]);
+        
         if (Auth::login($username, $password)) {
             return Router::redirect('dashboard');
         }
